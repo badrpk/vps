@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPS-PK — Pakistan’s Cloud</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #667eea;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Main Content */
+        .main {
+            margin-top: 100px;
+            padding: 2rem 0;
+        }
+
+        .hero {
+            text-align: center;
+            color: white;
+            margin-bottom: 4rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Service Categories */
+        .services-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .service-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-category {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .service-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .category-count {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            margin-left: auto;
+        }
+
+        .service-list {
+            list-style: none;
+        }
+
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #e9ecef;
+            transition: background-color 0.3s;
+        }
+
+        .service-item:hover {
+            background-color: rgba(102, 126, 234, 0.1);
+            border-radius: 8px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .service-item:last-child {
+            border-bottom: none;
+        }
+
+        .service-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .service-description {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .service-status {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-ready {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        /* API Dashboard */
+        .api-dashboard {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .dashboard-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .card-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .card-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem 0;
+            text-align: center;
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .service-categories {
+                grid-template-columns: 1fr;
+            }
+
+            .services-section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-cloud"></i>
+                    VPS-PK Cloud Platform
+                </div>
+                <nav class="nav">
+                    <a href="#services">Services</a>
+                    <a href="#api">API</a>
+                    <a href="#dashboard">Dashboard</a>
+                    <a href="#docs">Documentation</a>
+                </nav>
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    Platform Online
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1>Pakistan’s Cloud for Builders</h1>
+                <p>Comprehensive cloud infrastructure with 200+ innovative services</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">21</span>
+                        <span class="stat-label">Services Implemented</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">16</span>
+                        <span class="stat-label">Service Categories</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">200+</span>
+                        <span class="stat-label">Total Services</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">99.9%</span>
+                        <span class="stat-label">Uptime SLA</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Service Categories -->
+            <section id="services" class="services-section">
+                <h2 class="section-title">Service Categories</h2>
+                <div class="service-categories">
+                    <!-- Compute Services -->
+                    <div class="service-category">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <div class="category-title">Compute Services</div>
+                            <div class="category-count">2/15</div>
+                        </div>
+                        <ul class="service-list">
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">ZephyrCore</div>
+                                    <div class="service-description">High-performance VMs</div>
+                                </div>
+                                <span class="service-status status-active">Active</span>
+                            </li>
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">NebulaRun</div>
+                                    <div class="service-description">Scalable instances</div>
+                                </div>
+                                <span class="service-status status-active">Active</span>
+                            </li>
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">StarWeave</div>
+                                    <div class="service-description">Specialized compute</div>
+                                </div>
+                                <span class="service-status status-ready">Ready</span>
+                            </li>
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">CrestHost</div>
+                                    <div class="service-description">Web hosting</div>
+                                </div>
+                                <span class="service-status status-ready">Ready</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Storage Services -->
+                    <div class="service-category">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="category-title">Storage Services</div>
+                            <div class="category-count">1/12</div>
+                        </div>
+                        <ul class="service-list">
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">MoonVault</div>
+                                    <div class="service-description">Object storage</div>
+                                </div>
+                                <span class="service-status status-active">Active</span>
+                            </li>
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">DataForge</div>
+                                    <div class="service-description">Block storage</div>
+                                </div>
+                                <span class="service-status status-ready">Ready</span>
+                            </li>
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">ArchiveVault</div>
+                                    <div class="service-description">Cold storage</div>
+                                </div>
+                                <span class="service-status status-ready">Ready</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Security Services -->
+                    <div class="service-category">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="category-title">Security Services</div>
+                            <div class="category-count">2/12</div>
+                        </div>
+                        <ul class="service-list">
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">GuardianGate</div>
+                                    <div class="service-description">Firewall & IDS</div>
+                                </div>
+                                <span class="service-status status-active">Active</span>
+                            </li>
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">VaultKey</div>
+                                    <div class="service-description">Key management</div>
+                                </div>
+                                <span class="service-status status-active">Active</span>
+                            </li>
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">SecureVault</div>
+                                    <div class="service-description">Secrets management</div>
+                                </div>
+                                <span class="service-status status-ready">Ready</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- AI/ML Services -->
+                    <div class="service-category">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="category-title">AI/ML Services</div>
+                            <div class="category-count">1/15</div>
+                        </div>
+                        <ul class="service-list">
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">IntelliSynth</div>
+                                    <div class="service-description">Model training</div>
+                                </div>
+                                <span class="service-status status-active">Active</span>
+                            </li>
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">NeuralForge</div>
+                                    <div class="service-description">Deep learning</div>
+                                </div>
+                                <span class="service-status status-ready">Ready</span>
+                            </li>
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">VisionCore</div>
+                                    <div class="service-description">Computer vision</div>
+                                </div>
+                                <span class="service-status status-ready">Ready</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Developer Tools -->
+                    <div class="service-category">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="category-title">Developer Tools</div>
+                            <div class="category-count">2/12</div>
+                        </div>
+                        <ul class="service-list">
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">BuildFlow</div>
+                                    <div class="service-description">CI/CD pipelines</div>
+                                </div>
+                                <span class="service-status status-active">Active</span>
+                            </li>
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">ApiStar</div>
+                                    <div class="service-description">API management</div>
+                                </div>
+                                <span class="service-status status-active">Active</span>
+                            </li>
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">CodeForge</div>
+                                    <div class="service-description">Code repository</div>
+                                </div>
+                                <span class="service-status status-ready">Ready</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Business Applications -->
+                    <div class="service-category">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="category-title">Business Applications</div>
+                            <div class="category-count">1/10</div>
+                        </div>
+                        <ul class="service-list">
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">BusinessHub</div>
+                                    <div class="service-description">CRM & ERP</div>
+                                </div>
+                                <span class="service-status status-active">Active</span>
+                            </li>
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">WorkFlow</div>
+                                    <div class="service-description">Workflow automation</div>
+                                </div>
+                                <span class="service-status status-ready">Ready</span>
+                            </li>
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">CollabSpace</div>
+                                    <div class="service-description">Team collaboration</div>
+                                </div>
+                                <span class="service-status status-ready">Ready</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Analytics Services -->
+                    <div class="service-category">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <div class="category-title">Analytics Services</div>
+                            <div class="category-count">2/15</div>
+                        </div>
+                        <ul class="service-list">
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">DataStream</div>
+                                    <div class="service-description">Real-time data processing</div>
+                                </div>
+                                <span class="service-status status-active">Active</span>
+                            </li>
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">InsightForge</div>
+                                    <div class="service-description">Business intelligence</div>
+                                </div>
+                                <span class="service-status status-active">Active</span>
+                            </li>
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">DataLake</div>
+                                    <div class="service-description">Data warehousing</div>
+                                </div>
+                                <span class="service-status status-ready">Ready</span>
+                            </li>
+                            <li class="service-item">
+                                <div>
+                                    <div class="service-name">QueryEngine</div>
+                                    <div class="service-description">Analytics queries</div>
+                                </div>
+                                <span class="service-status status-ready">Ready</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- API Dashboard -->
+            <section id="api" class="api-dashboard">
+                <h2 class="section-title">API Dashboard</h2>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="card-title">Health Check</div>
+                        <div class="card-description">Monitor platform health and status</div>
+                        <a href="http://localhost:3000/health" class="card-button" target="_blank">Check Health</a>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="card-title">API Documentation</div>
+                        <div class="card-description">Complete API reference and examples</div>
+                        <a href="http://localhost:3000/docs" class="card-button" target="_blank">View Docs</a>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <div class="card-title">Service Manager</div>
+                        <div class="card-description">Manage and monitor all services</div>
+                        <button class="card-button" onclick="openServiceManager()">Open Manager</button>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="card-title">Analytics</div>
+                        <div class="card-description">Platform metrics and insights</div>
+                        <button class="card-button" onclick="openAnalytics()">View Analytics</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 VPS-PK Cloud Platform. All rights reserved.</p>
+            <p>Enterprise-grade cloud services with innovative solutions</p>
+        </div>
+    </footer>
+
+    <script>
+        // Service Manager Modal
+        function openServiceManager() {
+            alert('Service Manager - All 21 services are active and running!\n\n• Compute: ZephyrCore, NebulaRun\n• Storage: MoonVault\n• Database: AuroraBase\n• Networking: SkyNet\n• AI/ML: IntelliSynth\n• Security: GuardianGate, VaultKey\n• Management: SkyMonitor\n• Developer Tools: BuildFlow, ApiStar\n• IoT/Edge: EdgeForge\n• Integration: MessageFlow, ContainerForge\n• Media: MediaStream\n• Blockchain: ChainForge\n• Business: BusinessHub\n• Hybrid: CloudBridge\n• Enterprise: EnterpriseGuard\n• Analytics: DataStream, InsightForge');
+        }
+
+        // Analytics Modal
+        function openAnalytics() {
+            alert('Platform Analytics:\n\n📊 Total Services: 21 implemented\n✅ Active Services: 100%\n⏱️ Uptime: 99.9%\n📈 API Calls: 1,247\n🔧 Service Health: All Green\n💰 Cost Optimization: Active\n🛡️ Security Score: 95%\n📱 User Satisfaction: 98%\n📊 Analytics Services: DataStream, InsightForge');
+        }
+
+        // Test API Function
+        function testAPI(endpoint) {
+            const url = `http://localhost:3000${endpoint}`;
+            
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'X-API-Key': 'demo-key',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(`API Response for ${endpoint}:\n\n${JSON.stringify(data, null, 2)}`);
+            })
+            .catch(error => {
+                alert(`API Error for ${endpoint}:\n\n${error.message}`);
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Update status indicator
+        function updateStatus() {
+            fetch('http://localhost:3000/health')
+                .then(response => response.json())
+                .then(data => {
+                    const indicator = document.querySelector('.status-indicator');
+                    if (data.success) {
+                        indicator.style.background = '#4CAF50';
+                        indicator.innerHTML = '<div class="status-dot"></div>Platform Online';
+                    } else {
+                        indicator.style.background = '#f44336';
+                        indicator.innerHTML = '<div class="status-dot"></div>Platform Offline';
+                    }
+                })
+                .catch(error => {
+                    const indicator = document.querySelector('.status-indicator');
+                    indicator.style.background = '#f44336';
+                    indicator.innerHTML = '<div class="status-dot"></div>Platform Offline';
+                });
+        }
+
+        // Update status every 30 seconds
+        setInterval(updateStatus, 30000);
+        
+        // Initial status check
+        updateStatus();
+    </script>
+</body>
+</html>
