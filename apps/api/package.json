@@ -8,7 +8,6 @@
     "dev": "nodemon server.js",
     "build": "npm run lint && npm run test:unit",
     "deploy": "npm run build && npm start",
-    
     "test": "node testing/test-runner.js",
     "test:all": "node testing/test-runner.js --enableUnitTests=true --enableIntegrationTests=true --enableAPITests=true --enablePerformanceTests=true --enableSecurityTests=true --enableLoadTests=true --enableE2ETests=true",
     "test:unit": "node testing/test-runner.js --enableUnitTests=true --enableIntegrationTests=false --enableAPITests=false --enablePerformanceTests=false --enableSecurityTests=false --enableLoadTests=false --enableE2ETests=false",
@@ -21,43 +20,38 @@
     "test:smoke": "node testing/test-runner.js --enableUnitTests=false --enableIntegrationTests=false --enableAPITests=true --enablePerformanceTests=false --enableSecurityTests=false --enableLoadTests=false --enableE2ETests=false",
     "test:owasp": "node testing/vpspk-security-tester.js --enableOWASP=true",
     "test:report": "node testing/test-runner.js --generateReport=true",
-    
     "lint": "eslint . --ext .js",
     "lint:fix": "eslint . --ext .js --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "deps:check": "npm audit --audit-level=moderate",
     "deps:update": "npm update",
-    
     "load:light": "node testing/vpspk-load-tester.js --scenario=light",
     "load:medium": "node testing/vpspk-load-tester.js --scenario=medium",
     "load:heavy": "node testing/vpspk-load-tester.js --scenario=heavy",
     "load:stress": "node testing/vpspk-load-tester.js --scenario=stress",
     "load:spike": "node testing/vpspk-load-tester.js --scenario=spike",
-    
     "security:scan": "node testing/vpspk-security-tester.js",
     "security:owasp": "node testing/vpspk-security-tester.js --enableOWASP=true",
     "security:penetration": "node testing/vpspk-security-tester.js --enablePenetrationTesting=true",
-    
     "monitor": "node monitoring/vpspk-monitor.js",
     "optimize": "node optimization/vpspk-performance-optimizer.js",
     "backup": "bash backup-recovery/backup-system.sh full",
     "backup:incremental": "bash backup-recovery/backup-system.sh incremental",
     "backup:database": "bash backup-recovery/backup-system.sh database",
     "restore": "bash backup-recovery/backup-system.sh restore",
-    
     "docs": "jsdoc -c jsdoc.conf.json",
     "docs:serve": "jsdoc -c jsdoc.conf.json && serve docs/",
-    
     "docker:build": "docker build -t vps-pk-cloud .",
     "docker:run": "docker run -d -p 3000:3000 --name vps-pk-cloud vps-pk-cloud",
     "docker:stop": "docker stop vps-pk-cloud && docker rm vps-pk-cloud",
-    
     "pm2:start": "pm2 start ecosystem.config.js",
     "pm2:stop": "pm2 stop vps-pk-cloud",
     "pm2:restart": "pm2 restart vps-pk-cloud",
     "pm2:logs": "pm2 logs vps-pk-cloud",
-    "pm2:monit": "pm2 monit"
+    "pm2:monit": "pm2 monit",
+    "start:plane": "node competitive_plane.js",
+    "competitive": "node competitive_plane.js"
   },
   "keywords": [
     "cloud",
@@ -118,8 +112,14 @@
     "testEnvironment": "node",
     "collectCoverage": true,
     "coverageDirectory": "coverage",
-    "coverageReporters": ["text", "lcov", "html"],
-    "testMatch": ["**/tests/**/*.test.js"]
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "html"
+    ],
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ]
   },
   "eslintConfig": {
     "env": {
@@ -127,16 +127,30 @@
       "es2021": true,
       "jest": true
     },
-    "extends": ["eslint:recommended"],
+    "extends": [
+      "eslint:recommended"
+    ],
     "parserOptions": {
       "ecmaVersion": 12,
       "sourceType": "module"
     },
     "rules": {
-      "indent": ["error", 2],
-      "linebreak-style": ["error", "unix"],
-      "quotes": ["error", "single"],
-      "semi": ["error", "always"],
+      "indent": [
+        "error",
+        2
+      ],
+      "linebreak-style": [
+        "error",
+        "unix"
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "semi": [
+        "error",
+        "always"
+      ],
       "no-unused-vars": "warn",
       "no-console": "off"
     }
