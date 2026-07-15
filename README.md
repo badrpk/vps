@@ -13,7 +13,7 @@ Open-source cloud services platform (API + website).
 ## Download & use
 
 ```bash
-git clone https://github.com/badrpk/vps-pk.git
+git clone https://github.com/badrpk/vps.git
 cd vps-pk/apps/api
 npm install
 npm start   # or: node server.js

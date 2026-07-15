@@ -1,5 +1,5 @@
 {
-  "name": "vps-pk",
+  "name": "vps",
   "private": true,
   "description": "VPS-PK cloud platform monorepo",
   "scripts": {
