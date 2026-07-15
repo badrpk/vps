@@ -5,6 +5,7 @@ const http = require("http");
 const { URL } = require("url");
 const plane = require("./services/droplets");
 const pay = require("./payments");
+const auth = require("./auth");
 const PORT = process.env.COMPETITIVE_PORT || process.env.PORT || 3001;
 
 // Override sizes to undercut DO
@@ -29,6 +30,17 @@ function body(req) {
 http.createServer(async (req, res) => {
   const u = new URL(req.url, `http://127.0.0.1:${PORT}`);
   const p = u.pathname.replace(/\/$/, "") || "/";
+  // AUTH_ROUTER_V1
+  if (typeof p === "string" && (p === "/auth" || p.startsWith("/auth/"))) {
+    let bodyObj = {};
+    if (req.method === "POST" || req.method === "PUT" || req.method === "PATCH") {
+      bodyObj = await new Promise((resolve) => {
+        let d = ""; req.on("data", c => d += c); req.on("end", () => { try { resolve(JSON.parse(d || "{}")); } catch { resolve({}); } });
+      });
+    }
+    const result = await auth.handleAuth(req.method, p, bodyObj, req.headers, "vps");
+    return json(res, result.status, result.body);
+  }
   try {
     if (p === "/" || p === "/health" || p === "/v2") {
       return json(res, 200, { ok: true, service: "vps-pk-control-plane", version: "3.0.0",
@@ -36,7 +48,7 @@ http.createServer(async (req, res) => {
         gaps_closed: ["floating_ips", "firewalls", "backups", "load_balancers", "stripe_billing", "undercut_sizes"]});
     }
     if (p === "/capabilities") return json(res, 200, { ok: true, competitor: "DigitalOcean", features: [
-      "regions","sizes","ssh_keys","droplets","actions","metrics","floating_ips","firewalls","backups","load_balancers","stripe","jazzcash"
+      "regions","sizes","ssh_keys","droplets","actions","metrics","floating_ips","firewalls","backups","load_balancers","stripe", "signup", "login", "otp", "oauth_google", "oauth_facebook","jazzcash"
     ]});
     if (p === "/gap-analysis") return json(res, 200, { ok: true, competitor: "DigitalOcean",
       was_missing: ["floating IPs","firewalls","backups","LBs","real multi-rail billing"], now: "implemented",
