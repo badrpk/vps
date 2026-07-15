@@ -17,3 +17,7 @@ cd apps/api && node competitive_plane.js
 ```
 
 Existing multi-service `server.js` remains for the 200+ catalog surface.
+
+## v3
+See GAP_ANALYSIS.md — multi-rail payments + undercut pricing + gap features.
+
