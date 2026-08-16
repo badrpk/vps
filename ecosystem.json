@@ -1,0 +1,19 @@
+{
+  "schema": "sophyane-ecosystem-v1",
+  "component": "vps",
+  "role": "webserver",
+  "capabilities": ["tls", "sni", "https", "reverse-proxy", "certificate-loading"],
+  "peers": {
+    "shmry": "cloud-email-server",
+    "xerus": "disk-first-memory",
+    "huobzlang": "highest-level-language",
+    "neuron": "biological-intelligence",
+    "nifdu": "screenshot-loop-harness",
+    "sophyane": "multi-option-harness"
+  },
+  "routing": {
+    "policy": "request-peer-capability-when-local-capability-is-missing",
+    "transport": ["local-process", "http-json", "https-json"],
+    "fallback": "return-explicit-capability-unavailable"
+  }
+}
