@@ -1,0 +1,12 @@
+{
+  "hosts": {
+    "example.com": {
+      "fullchain": "/etc/vps/certs/example.com/fullchain.pem",
+      "key": "/etc/vps/certs/example.com/privkey.pem"
+    },
+    "api.example.com": {
+      "fullchain": "/etc/vps/certs/api.example.com/fullchain.pem",
+      "key": "/etc/vps/certs/api.example.com/privkey.pem"
+    }
+  }
+}
