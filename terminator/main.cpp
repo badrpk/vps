@@ -1,4 +1,9 @@
+#if defined(_WIN32)
+#ifndef _WIN32_WINNT
 #define _WIN32_WINNT 0x0A00
+#endif
+#endif
+
 #include <boost/asio.hpp>
 #include <boost/asio/ssl.hpp>
 #include <boost/beast.hpp>
@@ -97,7 +102,7 @@ int main(int argc, char** argv){
                     beast::error_code ec;
                     stream.shutdown(ec);
                 }catch(std::exception const&){
-                    // ignore per-conn errors
+                    // ignore per-connection errors
                 }
             }).detach();
         }
@@ -106,5 +111,3 @@ int main(int argc, char** argv){
         return 1;
     }
 }
-
-
