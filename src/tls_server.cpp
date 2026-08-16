@@ -63,7 +63,7 @@ void run_tls_server(unsigned short port,
                         // Naive SNI extractor — works for Chrome/Firefox/Edge
                         size_t p = clientHello.find("server_name");
                         if (p != std::string::npos) {
-                            size_t hstart = clientHello.find_last_of(0x00, p);
+                            size_t hstart = clientHello.find_last_of('\0', p);
                             size_t hend = clientHello.find('\0', hstart + 1);
                             host = clientHello.substr(hstart + 1, hend - hstart - 1);
                         }
